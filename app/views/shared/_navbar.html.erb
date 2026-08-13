@@ -1,0 +1,49 @@
+<header class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-cyan-500/20 shadow-xl shadow-cyan-950/20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <!-- Logo -->
+    <%= link_to root_path, class: "flex items-center space-x-3 group" do %>
+      <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-pink-500 flex items-center justify-center text-2xl shadow-lg shadow-cyan-500/30 group-hover:scale-105 transition-transform">
+        🕹️
+      </div>
+      <div>
+        <span class="font-heading font-black text-2xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-300 to-pink-400 glow-cyan">
+          NEXUS<span class="text-pink-500">ARCADE</span>
+        </span>
+        <div class="text-[10px] text-slate-400 font-mono flex items-center space-x-1 tracking-widest uppercase">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Rails 8 • Solid Stack</span>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Navigation Links -->
+    <nav class="hidden md:flex items-center space-x-1">
+      <%= link_to root_path, class: "px-4 py-2 rounded-xl text-sm font-semibold transition-all #{current_page?(root_path) ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 shadow-lg' : 'text-slate-300 hover:text-white hover:bg-slate-800/60'}" do %>
+        🕹️ Arcade Hub
+      <% end %>
+
+      <%= link_to leaderboards_path, class: "px-4 py-2 rounded-xl text-sm font-semibold transition-all #{current_page?(leaderboards_path) ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 shadow-lg' : 'text-slate-300 hover:text-white hover:bg-slate-800/60'}" do %>
+        🏆 Leaderboards
+      <% end %>
+
+      <%= link_to system_status_path, class: "px-4 py-2 rounded-xl text-sm font-semibold transition-all #{current_page?(system_status_path) ? 'bg-purple-500/10 text-purple-400 border border-purple-500/30 shadow-lg' : 'text-slate-300 hover:text-white hover:bg-slate-800/60'}" do %>
+        ⚡ Rails 8 Engine
+      <% end %>
+    </nav>
+
+    <!-- User Profile & Sound Toggle Controls -->
+    <div class="flex items-center space-x-3">
+      <!-- Mute Toggle -->
+      <button data-sound-target="muteButton" data-action="click->sound#toggleMute" class="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs font-mono text-slate-300 hover:border-cyan-400 transition-colors">
+        🔊 SOUND: ON
+      </button>
+
+      <!-- Player Alias Button -->
+      <button data-action="click->player-session#openModal" class="flex items-center space-x-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-cyan-950 to-indigo-950 border border-cyan-500/40 text-slate-100 hover:border-cyan-400 shadow-md transition-all">
+        <span data-player-session-target="avatarDisplay" class="text-xl">👾</span>
+        <span data-player-session-target="handleDisplay" class="font-bold text-xs text-cyan-300 font-mono">CyberRookie</span>
+        <span class="text-[10px] text-slate-500">✏️</span>
+      </button>
+    </div>
+  </div>
+</header>

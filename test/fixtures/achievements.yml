@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  player: one
+  badge_key: MyString
+  title: MyString
+  description: MyString
+  unlocked_at: 2026-08-13 12:32:00
+
+two:
+  player: two
+  badge_key: MyString
+  title: MyString
+  description: MyString
+  unlocked_at: 2026-08-13 12:32:00

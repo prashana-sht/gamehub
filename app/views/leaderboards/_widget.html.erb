@@ -1,0 +1,46 @@
+<div id="leaderboard_widget" class="bg-slate-900/80 backdrop-blur-md border border-cyan-500/30 rounded-2xl p-5 shadow-2xl shadow-cyan-950/40 text-slate-100">
+  <div class="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
+    <div class="flex items-center space-x-2">
+      <span class="text-xl">🏆</span>
+      <h3 class="font-bold text-lg text-cyan-400 uppercase tracking-wider">Top Arcade Legends</h3>
+    </div>
+    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 animate-pulse">
+      <span class="w-1.5 h-1.5 mr-1.5 rounded-full bg-emerald-400"></span> Live Solid Cache
+    </span>
+  </div>
+
+  <div class="space-y-2.5">
+    <% scores.each_with_index do |gs, idx| %>
+      <div class="flex items-center justify-between p-3 rounded-xl bg-slate-800/40 hover:bg-slate-800/80 transition-all border border-slate-800 hover:border-cyan-500/40 group">
+        <div class="flex items-center space-x-3">
+          <span class="font-mono font-bold text-sm w-6 text-center <%= idx == 0 ? 'text-amber-400 text-base' : (idx == 1 ? 'text-slate-300' : (idx == 2 ? 'text-amber-600' : 'text-slate-500')) %>">
+            #<%= idx + 1 %>
+          </span>
+          <span class="text-2xl transform group-hover:scale-110 transition-transform"><%= gs.player.avatar %></span>
+          <div>
+            <div class="font-bold text-sm text-slate-200 group-hover:text-cyan-300 transition-colors flex items-center gap-1.5">
+              <%= gs.player.username %>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-700/60 text-slate-400 font-normal"><%= gs.player.title %></span>
+            </div>
+            <div class="text-[11px] text-slate-400 flex items-center space-x-2 font-mono">
+              <span><%= GameScore::GAME_TYPES[gs.game_type] || gs.game_type %></span>
+              <% if gs.max_combo && gs.max_combo > 0 %>
+                <span class="text-amber-400">🔥 <%= gs.max_combo %>x</span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="text-right">
+          <div class="font-mono font-bold text-cyan-400 text-base"><%= number_with_delimiter(gs.score) %></div>
+          <div class="text-[10px] text-slate-500"><%= time_ago_in_words(gs.created_at) %> ago</div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if scores.empty? %>
+      <div class="text-center py-6 text-slate-500 text-sm italic">
+        No high scores recorded yet. Be the first to play!
+      </div>
+    <% end %>
+  </div>
+</div>

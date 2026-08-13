@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  player: one
+  game_type: MyString
+  score: 1
+  accuracy: 1.5
+  max_combo: 1
+  duration_seconds: 1
+
+two:
+  player: two
+  game_type: MyString
+  score: 1
+  accuracy: 1.5
+  max_combo: 1
+  duration_seconds: 1

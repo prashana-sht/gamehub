@@ -1,0 +1,9 @@
+<div class="toast-card animate-bounce-in p-4 rounded-xl bg-gradient-to-r from-amber-950/90 to-yellow-900/90 border border-amber-500/50 text-white shadow-lg flex items-center space-x-3 mb-2">
+  <span class="text-3xl"><%= badge[:icon] %></span>
+  <div>
+    <h4 class="font-bold text-amber-400 text-sm">ACHIEVEMENT UNLOCKED: <%= achievement.title %>!</h4>
+    <p class="text-xs text-amber-100">
+      <strong><%= player.username %></strong> earned: <%= achievement.description %>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,182 @@
+<div class="mb-6 flex items-center justify-between">
+  <%= link_to root_path, class: "inline-flex items-center space-x-2 text-xs font-mono font-semibold text-slate-400 hover:text-cyan-400 transition-colors" do %>
+    <span>← BACK TO ARCADE HUB</span>
+  <% end %>
+
+  <div class="flex items-center space-x-2">
+    <span class="text-xs font-mono text-slate-400">CURRENT GAME:</span>
+    <span class="px-3 py-1 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold text-xs font-mono uppercase"><%= @game_name %></span>
+  </div>
+</div>
+
+<% case @game_id %>
+<% when "cyber_dash" %>
+  <!-- Cyber Dash Speed Typing Game Arena -->
+  <div data-controller="cyber-dash" class="relative bg-slate-900/90 backdrop-blur-xl border border-cyan-500/40 rounded-3xl p-6 sm:p-10 shadow-2xl shadow-cyan-950/60 max-w-4xl mx-auto overflow-hidden">
+    
+    <!-- Game Header HUD Bar -->
+    <div class="grid grid-cols-4 gap-4 p-4 rounded-2xl bg-slate-950/80 border border-slate-800 text-center mb-8 font-mono">
+      <div>
+        <div class="text-[10px] text-slate-400 uppercase">TIME REMAINING</div>
+        <div data-cyber-dash-target="timer" class="font-extrabold text-2xl text-cyan-400">30s</div>
+      </div>
+      <div>
+        <div class="text-[10px] text-slate-400 uppercase">SCORE</div>
+        <div data-cyber-dash-target="score" class="font-extrabold text-2xl text-amber-400">0</div>
+      </div>
+      <div>
+        <div class="text-[10px] text-slate-400 uppercase">COMBO</div>
+        <div data-cyber-dash-target="combo" class="font-extrabold text-2xl text-pink-400">0x</div>
+      </div>
+      <div>
+        <div class="text-[10px] text-slate-400 uppercase">ACCURACY</div>
+        <div data-cyber-dash-target="accuracy" class="font-extrabold text-2xl text-emerald-400">100%</div>
+      </div>
+    </div>
+
+    <!-- Active Target Capsules Container -->
+    <div class="min-h-[220px] p-6 rounded-2xl bg-slate-950/40 border border-slate-800 flex flex-wrap items-center justify-center gap-3 mb-8 relative">
+      <div data-cyber-dash-target="targetContainer" class="flex flex-wrap gap-3 items-center justify-center">
+        <!-- Floating Cyber Capsule Words Spawned Here -->
+      </div>
+    </div>
+
+    <!-- Command Prompt Input -->
+    <div class="relative">
+      <div class="absolute left-4 top-3.5 text-cyan-400 font-mono font-bold text-lg">⚡ &gt;</div>
+      <input data-cyber-dash-target="input" data-action="input->cyber-dash#handleInput" type="text" disabled placeholder="Click START to begin typing keywords..." class="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-slate-950 border border-cyan-500/50 text-cyan-200 font-mono font-bold text-lg focus:outline-none focus:border-cyan-400 shadow-inner disabled:opacity-50 transition-colors uppercase">
+    </div>
+
+    <!-- Start Overlay -->
+    <div data-cyber-dash-target="overlay" class="absolute inset-0 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center">
+      <span class="text-6xl mb-4 animate-bounce">⚡</span>
+      <h2 class="font-heading font-black text-3xl text-white mb-2">CYBER DASH</h2>
+      <p class="text-slate-300 text-sm max-w-md mb-6">Type the target command keywords or click target capsules to blast them! Build huge combos before the 30s timer runs out.</p>
+      
+      <button data-cyber-dash-target="startBtn" data-action="click->cyber-dash#startGame" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-indigo-600 to-pink-500 font-black text-lg text-white shadow-2xl shadow-cyan-500/40 hover:scale-105 transition-all">
+        START GAME
+      </button>
+
+      <div class="mt-4 text-xs font-mono text-slate-400">
+        High score will be processed via <span class="text-cyan-400">Solid Queue</span> & stored in <span class="text-cyan-400">Solid Cache</span>!
+      </div>
+    </div>
+  </div>
+
+<% when "neon_memory" %>
+  <!-- Neon Matrix Memory Game Arena -->
+  <div data-controller="neon-memory" class="relative bg-slate-900/90 backdrop-blur-xl border border-pink-500/40 rounded-3xl p-6 sm:p-10 shadow-2xl shadow-pink-950/60 max-w-2xl mx-auto overflow-hidden text-center">
+    
+    <!-- Game Header HUD -->
+    <div class="grid grid-cols-2 gap-4 p-4 rounded-2xl bg-slate-950/80 border border-slate-800 mb-6 font-mono">
+      <div>
+        <div class="text-[10px] text-slate-400 uppercase">LEVEL</div>
+        <div data-neon-memory-target="level" class="font-extrabold text-2xl text-pink-400">1</div>
+      </div>
+      <div>
+        <div class="text-[10px] text-slate-400 uppercase">SCORE</div>
+        <div data-neon-memory-target="score" class="font-extrabold text-2xl text-amber-400">0</div>
+      </div>
+    </div>
+
+    <!-- Status Banner -->
+    <div data-neon-memory-target="status" class="text-xs font-mono font-bold text-cyan-300 mb-6 py-2 px-4 rounded-xl bg-slate-800/60 border border-slate-700">
+      CLICK START TO BEGIN MEMORY PATTERN
+    </div>
+
+    <!-- 3x3 Grid of Glowing Tiles -->
+    <div data-neon-memory-target="grid" class="grid grid-cols-3 gap-4 max-w-md mx-auto aspect-square mb-6">
+      <% 9.times do |idx| %>
+        <button data-tile-index="<%= idx %>" data-action="click->neon-memory#handleTileClick" class="w-full h-full rounded-2xl bg-slate-800/80 border border-slate-700 hover:border-pink-400 transition-all duration-200 shadow-md flex items-center justify-center text-xl text-slate-500">
+          ●
+        </button>
+      <% end %>
+    </div>
+
+    <!-- Start Overlay -->
+    <div data-neon-memory-target="overlay" class="absolute inset-0 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center">
+      <span class="text-6xl mb-4 animate-bounce">🧠</span>
+      <h2 class="font-heading font-black text-3xl text-white mb-2">NEON MATRIX</h2>
+      <p class="text-slate-300 text-sm max-w-md mb-6">Watch the lighted tile sequence & listen to synth tones, then repeat the exact sequence!</p>
+
+      <button data-neon-memory-target="startBtn" data-action="click->neon-memory#startGame" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-500 font-black text-lg text-white shadow-2xl shadow-pink-500/40 hover:scale-105 transition-all">
+        START GAME
+      </button>
+    </div>
+  </div>
+
+<% when "pixel_dice" %>
+  <!-- Pixel Dungeon Card & Dice Game Arena -->
+  <div data-controller="pixel-dice" class="relative bg-slate-900/90 backdrop-blur-xl border border-amber-500/40 rounded-3xl p-6 sm:p-10 shadow-2xl shadow-amber-950/60 max-w-4xl mx-auto overflow-hidden">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <!-- Player Card -->
+      <div class="arcade-card p-5 rounded-2xl border border-cyan-500/30">
+        <div class="flex items-center space-x-3 mb-3">
+          <span class="text-3xl">🛡️</span>
+          <div>
+            <h4 class="font-bold text-white text-base">HERO COMMANDER</h4>
+            <div class="text-xs text-cyan-400 font-mono" data-pixel-dice-target="playerHp">100 / 100 HP</div>
+          </div>
+        </div>
+        <div class="w-full h-3 rounded-full bg-slate-800 overflow-hidden">
+          <div data-pixel-dice-target="playerHpBar" class="h-full bg-cyan-400 transition-all duration-300" style="width: 100%"></div>
+        </div>
+      </div>
+
+      <!-- Enemy Monster Card -->
+      <div class="arcade-card p-5 rounded-2xl border border-red-500/30">
+        <div class="flex items-center space-x-3 mb-3">
+          <span data-pixel-dice-target="monsterAvatar" class="text-3xl">👾</span>
+          <div>
+            <h4 data-pixel-dice-target="monsterName" class="font-bold text-white text-base">Cyber Slime</h4>
+            <div class="text-xs text-red-400 font-mono" data-pixel-dice-target="monsterHp">45 / 45 HP</div>
+          </div>
+        </div>
+        <div class="w-full h-3 rounded-full bg-slate-800 overflow-hidden">
+          <div data-pixel-dice-target="monsterHpBar" class="h-full bg-red-500 transition-all duration-300" style="width: 100%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Cards & Dice Controls -->
+    <div class="p-6 rounded-2xl bg-slate-950/80 border border-slate-800 text-center mb-6">
+      <div data-pixel-dice-target="diceResult" class="font-mono font-bold text-lg text-amber-400 mb-4 min-h-[28px]">
+        Choose your move!
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <button data-action="click->pixel-dice#rollAttackDice" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-lg shadow-amber-500/20 transition-all">
+          🎲 Roll Attack Dice
+        </button>
+
+        <button data-action="click->pixel-dice#playCriticalCard" class="px-6 py-3 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-sm shadow-lg shadow-pink-600/20 transition-all">
+          💥 Critical Laser Card
+        </button>
+
+        <button data-action="click->pixel-dice#useHealCard" class="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/20 transition-all">
+          💖 Heal Potion Card
+        </button>
+      </div>
+    </div>
+
+    <!-- Combat Log -->
+    <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800">
+      <div class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">Combat Log</div>
+      <div data-pixel-dice-target="combatLog" class="max-h-36 overflow-y-auto space-y-1">
+        <!-- Log lines dynamically prepended -->
+      </div>
+    </div>
+
+    <!-- Overlay -->
+    <div data-pixel-dice-target="overlay" class="absolute inset-0 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center">
+      <span class="text-6xl mb-4 animate-bounce">⚔️</span>
+      <h2 data-pixel-dice-target="victoryStatus" class="font-heading font-black text-3xl text-white mb-2">PIXEL DUNGEON</h2>
+      <p class="text-slate-300 text-sm max-w-md mb-6">Battle cyber monsters through 3 rounds using dice rolls and strategic card abilities!</p>
+
+      <button data-action="click->pixel-dice#startGame" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-600 to-red-500 font-black text-lg text-white shadow-2xl shadow-amber-500/40 hover:scale-105 transition-all">
+        START DUNGEON BATTLE
+      </button>
+    </div>
+  </div>
+<% end %>

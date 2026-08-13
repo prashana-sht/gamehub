@@ -1,0 +1,160 @@
+<!-- Hero Section -->
+<div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-cyan-500/30 p-8 sm:p-12 mb-10 shadow-2xl shadow-cyan-950/40">
+  <div class="absolute -right-10 -bottom-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -left-10 -top-10 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="relative z-10 max-w-3xl">
+    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono mb-4">
+      <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+      <span>RAILS 8 DEFAULTS ACTIVE • SOLID QUEUE • SOLID CACHE • KAMAL</span>
+    </div>
+
+    <h1 class="font-heading font-black text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-tight mb-4">
+      WELCOME TO <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-300 to-pink-400 glow-cyan">NEXUS ARCADE</span>
+    </h1>
+
+    <p class="text-slate-300 text-base sm:text-lg mb-8 leading-relaxed">
+      Engage in real-time, browser-native retro cyber games. High scores are validated asynchronously via <strong>Solid Queue</strong>, cached with <strong>Solid Cache</strong>, broadcast live via <strong>Solid Cable</strong>, and ready for single-command <strong>Kamal</strong> deployment.
+    </p>
+
+    <div class="flex flex-wrap gap-4">
+      <%= link_to game_path('cyber_dash'), class: "px-6 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 font-bold text-white shadow-xl shadow-cyan-500/30 hover:scale-105 transition-all flex items-center space-x-2" do %>
+        <span>⚡ PLAY CYBER DASH</span>
+      <% end %>
+
+      <%= link_to system_status_path, class: "px-6 py-3.5 rounded-2xl bg-slate-800/80 border border-slate-700 hover:border-purple-500/50 font-semibold text-slate-200 hover:text-white transition-all flex items-center space-x-2" do %>
+        <span>⚙️ VIEW RAILS 8 STACK</span>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Global Statistics Bar (Powered by Solid Cache) -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+  <div class="arcade-card p-5 rounded-2xl border border-slate-800">
+    <div class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">Total Games Played</div>
+    <div class="font-heading font-extrabold text-3xl text-cyan-400"><%= number_with_delimiter(@stats[:total_games]) %></div>
+    <div class="text-[10px] text-slate-500 mt-1 font-mono">⚡ Solid Cache Store</div>
+  </div>
+
+  <div class="arcade-card p-5 rounded-2xl border border-slate-800">
+    <div class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">Active Players</div>
+    <div class="font-heading font-extrabold text-3xl text-indigo-400"><%= number_with_delimiter(@stats[:total_players]) %></div>
+    <div class="text-[10px] text-slate-500 mt-1 font-mono">👾 Registered Handles</div>
+  </div>
+
+  <div class="arcade-card p-5 rounded-2xl border border-slate-800">
+    <div class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">Total Points Scored</div>
+    <div class="font-heading font-extrabold text-3xl text-pink-400"><%= number_with_delimiter(@stats[:total_score_all_time]) %></div>
+    <div class="text-[10px] text-slate-500 mt-1 font-mono">🔥 Cumulative Score</div>
+  </div>
+
+  <div class="arcade-card p-5 rounded-2xl border border-slate-800">
+    <div class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">Most Played Mode</div>
+    <div class="font-heading font-extrabold text-2xl text-amber-400 truncate"><%= GameScore::GAME_TYPES[@stats[:top_game]] || "Cyber Dash" %></div>
+    <div class="text-[10px] text-slate-500 mt-1 font-mono">🏆 Popular Choice</div>
+  </div>
+</div>
+
+<!-- Main Section Grid: Game Cards & Live Leaderboard -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <!-- Left 2 Columns: Featured Games -->
+  <div class="lg:col-span-2 space-y-6">
+    <div class="flex items-center justify-between">
+      <h2 class="font-heading font-bold text-2xl text-white flex items-center space-x-2">
+        <span>🎮</span>
+        <span>ARCADE GAMES</span>
+      </h2>
+      <span class="text-xs font-mono text-slate-400">SELECT GAME TO START</span>
+    </div>
+
+    <!-- Game Card 1: Cyber Dash -->
+    <div class="arcade-card rounded-3xl p-6 border border-cyan-500/30 hover:border-cyan-400 group transition-all">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex items-center space-x-4">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-3xl shadow-lg shadow-cyan-500/30 group-hover:scale-110 transition-transform">
+            ⚡
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h3 class="font-heading font-bold text-xl text-white group-hover:text-cyan-300 transition-colors">Cyber Dash</h3>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">REFLEX & TYPING</span>
+            </div>
+            <p class="text-slate-400 text-sm mt-1">Neutralize incoming cyber threats by typing target command keywords before time runs out!</p>
+          </div>
+        </div>
+        <%= link_to game_path('cyber_dash'), class: "w-full sm:w-auto px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm text-center shadow-lg shadow-cyan-500/20 transition-all" do %>
+          PLAY NOW
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Game Card 2: Neon Matrix -->
+    <div class="arcade-card rounded-3xl p-6 border border-pink-500/30 hover:border-pink-400 group transition-all">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex items-center space-x-4">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center text-3xl shadow-lg shadow-pink-500/30 group-hover:scale-110 transition-transform">
+            🧠
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h3 class="font-heading font-bold text-xl text-white group-hover:text-pink-300 transition-colors">Neon Matrix</h3>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-pink-500/20 text-pink-300 border border-pink-500/30">MEMORY RECALL</span>
+            </div>
+            <p class="text-slate-400 text-sm mt-1">Watch and listen to the synth tone sequence on glowing neon tiles, then repeat it back perfectly.</p>
+          </div>
+        </div>
+        <%= link_to game_path('neon_memory'), class: "w-full sm:w-auto px-6 py-3 rounded-xl bg-pink-500 hover:bg-pink-400 text-slate-950 font-bold text-sm text-center shadow-lg shadow-pink-500/20 transition-all" do %>
+          PLAY NOW
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Game Card 3: Pixel Dungeon -->
+    <div class="arcade-card rounded-3xl p-6 border border-amber-500/30 hover:border-amber-400 group transition-all">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex items-center space-x-4">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 to-red-600 flex items-center justify-center text-3xl shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform">
+            ⚔️
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h3 class="font-heading font-bold text-xl text-white group-hover:text-amber-300 transition-colors">Pixel Dungeon</h3>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">CARD & DICE BATTLER</span>
+            </div>
+            <p class="text-slate-400 text-sm mt-1">Roll tactical dice and trigger ability cards to defeat cyber monsters and the Omega Dragon!</p>
+          </div>
+        </div>
+        <%= link_to game_path('pixel_dice'), class: "w-full sm:w-auto px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm text-center shadow-lg shadow-amber-500/20 transition-all" do %>
+          PLAY NOW
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Column: Real-time Leaderboard & Recent Achievements -->
+  <div class="space-y-6">
+    <!-- Live Leaderboard Widget -->
+    <%= render "leaderboards/widget", scores: @top_scores %>
+
+    <!-- Recent Achievements Ticker -->
+    <div class="arcade-card rounded-2xl p-5 border border-slate-800">
+      <div class="flex items-center justify-between mb-3 border-b border-slate-800 pb-2">
+        <h4 class="font-bold text-xs text-amber-400 font-mono uppercase tracking-wider">🌟 Unlocked Badges</h4>
+        <span class="text-[10px] text-slate-500">Solid Queue Background Job</span>
+      </div>
+
+      <div class="space-y-2">
+        <% @recent_achievements.each do |ach| %>
+          <div class="flex items-center space-x-3 text-xs p-2 rounded-xl bg-slate-900/60 border border-slate-800">
+            <span class="text-xl"><%= Achievement::BADGES[ach.badge_key]&.fetch(:icon) || "🏅" %></span>
+            <div>
+              <div class="font-semibold text-slate-200"><%= ach.player.username %> unlocked <span class="text-amber-300"><%= ach.title %></span></div>
+              <div class="text-[10px] text-slate-500"><%= time_ago_in_words(ach.unlocked_at) %> ago</div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

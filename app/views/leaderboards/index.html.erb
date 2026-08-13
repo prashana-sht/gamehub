@@ -1,0 +1,81 @@
+<div class="mb-8">
+  <h1 class="font-heading font-black text-3xl sm:text-4xl text-white mb-2 flex items-center space-x-3">
+    <span>🏆</span>
+    <span>ARCADE LEADERBOARDS</span>
+  </h1>
+  <p class="text-slate-400 text-sm">Global rankings updated in real-time & cached via Rails 8 Solid Cache.</p>
+</div>
+
+<!-- Filter Tabs -->
+<div class="flex flex-wrap gap-2 mb-8 border-b border-slate-800 pb-4">
+  <%= link_to leaderboards_path, class: "px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all #{@game_type.blank? ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/20' : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-white'}" do %>
+    ALL GAMES
+  <% end %>
+
+  <% GameScore::GAME_TYPES.each do |key, name| %>
+    <%= link_to leaderboards_path(game_type: key), class: "px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all #{@game_type == key ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/20' : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-white'}" do %>
+      <%= name.upcase %>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <!-- Top Game Scores List -->
+  <div class="lg:col-span-2 space-y-3">
+    <div class="flex items-center justify-between px-2 text-xs font-mono text-slate-400 uppercase tracking-wider">
+      <span>Rank & Player</span>
+      <span>Game & Score</span>
+    </div>
+
+    <% @scores.each_with_index do |score, idx| %>
+      <div class="arcade-card p-4 rounded-2xl border border-slate-800 flex items-center justify-between hover:border-cyan-500/40 transition-all">
+        <div class="flex items-center space-x-4">
+          <span class="font-mono font-bold text-lg w-8 text-center <%= idx == 0 ? 'text-amber-400' : (idx == 1 ? 'text-slate-300' : (idx == 2 ? 'text-amber-600' : 'text-slate-600')) %>">
+            #<%= idx + 1 %>
+          </span>
+          <span class="text-3xl"><%= score.player.avatar %></span>
+          <div>
+            <%= link_to player_path(score.player), class: "font-bold text-base text-white hover:text-cyan-300 transition-colors" do %>
+              <%= score.player.username %>
+            <% end %>
+            <div class="text-xs text-slate-400 flex items-center space-x-2">
+              <span class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px]"><%= score.player.title %></span>
+              <span>Level <%= score.player.level %></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-right">
+          <div class="font-mono font-extrabold text-cyan-400 text-lg"><%= number_with_delimiter(score.score) %></div>
+          <div class="text-[10px] text-slate-500 font-mono"><%= GameScore::GAME_TYPES[score.game_type] || score.game_type %></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Top Ranked Overall Players -->
+  <div>
+    <div class="arcade-card p-6 rounded-3xl border border-purple-500/30">
+      <h3 class="font-heading font-bold text-lg text-purple-300 mb-4 flex items-center space-x-2">
+        <span>⭐</span>
+        <span>TOP PLAYERS OVERALL</span>
+      </h3>
+
+      <div class="space-y-3">
+        <% @top_players.each_with_index do |player, idx| %>
+          <div class="flex items-center justify-between text-xs p-2.5 rounded-xl bg-slate-950/60 border border-slate-800">
+            <div class="flex items-center space-x-2">
+              <span class="font-mono font-bold text-slate-500">#<%= idx + 1 %></span>
+              <span class="text-lg"><%= player.avatar %></span>
+              <span class="font-bold text-slate-200"><%= player.username %></span>
+            </div>
+            <div class="text-right font-mono">
+              <div class="text-purple-400 font-bold"><%= number_with_delimiter(player.total_score) %> pts</div>
+              <div class="text-[10px] text-slate-500">Lvl <%= player.level %></div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+one:
+  username: CyberPlayerOne
+  avatar: 👾
+  games_played: 5
+  total_score: 1500
+  level: 4
+  title: Pixel Runner
+
+two:
+  username: VaporPlayerTwo
+  avatar: ⚡
+  games_played: 10
+  total_score: 3500
+  level: 8
+  title: Cyber Striker
